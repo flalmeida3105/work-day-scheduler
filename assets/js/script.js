@@ -1,19 +1,21 @@
 function getCurrentDate() {
-    // get current time
+    // get current time and add to Jumbotron
     var currentDate = moment().format("dddd, MMMM Do");
     return currentDate;
 };
 
 function getCurrentHour() {
-    // get current business hours
+    // get current hour in 24 hours format
     var currentBusinessTime = moment().format("H");
     return currentBusinessTime;
 };
 
 
 function createTimeRowElements(currentHour, startTime, endTime) {
+    // create page elements 
     var timeContainerElement = $(".row");
-    
+
+    // convert 24 hours format to 12 hours format
     var availableTime = ""
     for (var i = startTime; i <= endTime; i++) {
         if (i <= 12) {
@@ -23,6 +25,7 @@ function createTimeRowElements(currentHour, startTime, endTime) {
             availableTime = newTime + "PM";
         };
 
+        // create page form element with P / Input / Button
         var timeFormElement = $("<form></form>")
             .addClass("col-10 d-flex flex-wrap justify-content-center")
 
@@ -37,17 +40,18 @@ function createTimeRowElements(currentHour, startTime, endTime) {
             .addClass("description col-8")
             .attr("id", "description-id-" + availableTime);
         
+        // compares the current hour with available time and add classes as needed
         if (currentHour == i) {
-                timeDescriptionElement.addClass("present");
-            } 
+            timeDescriptionElement.addClass("present");
+        } 
         if (i < currentHour) {
-                timeDescriptionElement.addClass("past");
-            } 
+            timeDescriptionElement.addClass("past");
+        } 
         if (i > currentHour) {
-                timeDescriptionElement.addClass("future");
-            }
-
-            timeFormElement.append(timeDescriptionElement);
+            timeDescriptionElement.addClass("future");
+        }
+        
+        timeFormElement.append(timeDescriptionElement);
 
         var timeButtonElement = $("<button></button>")
             .addClass("saveBtn col-1")
@@ -56,13 +60,11 @@ function createTimeRowElements(currentHour, startTime, endTime) {
             timeContainerElement.append(timeFormElement);
         
     };
-        console.log(timeContainerElement)
+        // console.log(timeContainerElement)
 }
 
-
-
-function setCurrentDateTime(currentDate) { 
-    // set current date and time in the jumbotron
+function setCurrentDate(currentDate) { 
+    // set current date to  jumbotron
     var currentDay = currentDate;
     currentDay = $("#currentDay").text(currentDate);
 };
@@ -73,7 +75,7 @@ function startCalendar() {
     var currentDate = getCurrentDate();
     var currentHour = getCurrentHour();
     createTimeRowElements(currentHour, 9, 18);
-    setCurrentDateTime(currentDate);
+    setCurrentDate(currentDate);
 };
 
 startCalendar();
