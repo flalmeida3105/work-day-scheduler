@@ -55,18 +55,27 @@ function createTimeRowElements(currentHour, startTime, endTime) {
 
         var timeButtonElement = $("<button></button>")
             .addClass("saveBtn col-1")
-            .attr("id", "button-id-" + availableTime);
+            .attr("type", "button")
+            .attr("id", "button-id-" + availableTime).on("click", saveCalendar);
             timeFormElement.append(timeButtonElement);
             timeContainerElement.append(timeFormElement);
         
     };
         // console.log(timeContainerElement)
-}
+};
 
 function setCurrentDate(currentDate) { 
     // set current date to  jumbotron
     var currentDay = currentDate;
     currentDay = $("#currentDay").text(currentDate);
+};
+
+function saveCalendar( ) {
+    // getting new input element
+    console.log($(this).attr("id").split("button-id-")[1]);
+    console.log($(this).siblings(".description").val());
+
+    
 };
 
 
