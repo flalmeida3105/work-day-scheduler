@@ -21,7 +21,7 @@ The calendar is fully dynamic and color-based to make it easier to understand wh
 For more details, see the GIF below.
 
 ## Enjoy a quick overview of the website
-<img src="assets/image/workDayScheduler.gif" width="550" height="250" >
+<img src="assets/image/workDayScheduler.gif" width="700" height="500" >
 
 ## Contribution
 Powered by Fernando Almeida
