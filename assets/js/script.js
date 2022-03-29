@@ -1,5 +1,5 @@
 function getCurrentDate() {
-    // get current time and add to Jumbotron
+    // get current date 
     var currentDate = moment().format("dddd, MMMM Do");
     return currentDate;
 };
@@ -10,12 +10,11 @@ function getCurrentHour() {
     return currentBusinessTime;
 };
 
-
 function createTimeRowElements(currentHour, startTime, endTime) {
     // create page elements 
     var timeContainerElement = $(".container");
 
-    // convert 24 hours format to 12 hours format
+    // convert from 24 hours format to 12 hours format
     var availableTime = ""
     for (var i = startTime; i <= endTime; i++) {
         if (i <= 12) {
@@ -25,7 +24,7 @@ function createTimeRowElements(currentHour, startTime, endTime) {
             availableTime = newTime + "PM";
         };
 
-        // create page form element with P / Input / Button
+        // create page form element with P / Textarea / Button
         var timeFormElement = $("<form></form>")
             .addClass("row col-12 d-flex flex-wrap justify-content-center")
 
@@ -41,7 +40,6 @@ function createTimeRowElements(currentHour, startTime, endTime) {
             // .css("text-align", "")
             .attr("id", "description-id-" + availableTime);
         
-            currentHour = 10;
         // compares the current hour with available time and add classes as needed
         if (currentHour == i) {
             timeDescriptionElement.addClass("present");
@@ -58,12 +56,11 @@ function createTimeRowElements(currentHour, startTime, endTime) {
         var timeButtonElement = $("<button></button>")
             .addClass("saveBtn col-1")
             .attr("type", "button")
-            .attr("id", "button-id-" + availableTime).on("click", saveCalendar);
+            .attr("id", "button-id-" + availableTime).on("click", saveCalendar)
+            .wrapInner('<i class="fa-solid fa-lock"></i>')
             timeFormElement.append(timeButtonElement);
             timeContainerElement.append(timeFormElement);
-        
     };
-        // console.log(timeContainerElement)
 };
 
 function setCurrentDate(currentDate) { 
@@ -74,11 +71,10 @@ function setCurrentDate(currentDate) {
 
 function saveCalendar( ) {
     // getting new input element
-    // console.log($(this).attr("id").split("button-id-")[1]);
-    // console.log($(this).siblings(".description").val());
     var getButtonElementId = $(this).attr("id").split("button-id-")[1];
     var getTextareaContent = $(this).siblings(".description").val();
 
+    // object to be store in the local storage
     var saveCalendarObj = {
         hour: getButtonElementId,
         description: getTextareaContent
@@ -99,7 +95,7 @@ function saveCalendar( ) {
             localStorage.setItem("calendar", JSON.stringify(savedCalendar[i]));
         }
     }
-
+    // save the data to local storage
     localStorage.setItem("calendar", JSON.stringify(savedCalendar));
 };
 
@@ -108,35 +104,13 @@ function loadCalendar() {
     var savedCalendar = localStorage.getItem("calendar");
     savedCalendar = JSON.parse(savedCalendar);
 
-    console.table(savedCalendar);
-
-
-
+    // loop through the local storage data and show results in DOM
     for (var i = 0; i < savedCalendar.length; i++) {
         var hour = savedCalendar[i].hour;
         var description = savedCalendar[i].description;
-        // console.log(hour)
         $("#description-id-" + hour).val(description);
     }
-
-
-
-    // $.each(savedCalendar, function(list, arr) {
-    //     console.log(list, arr);
- 
-    //     // console.log(arr.hour)
-    //     // Array.from(arr).(function(calendar) {
-    //     //     console.log(calendar.hour, calendar.description, list);
-    //     // });
-    // });
-
-
-
-
-
 };
-
-
 
 function startCalendar() {
     // call the calendar function 
