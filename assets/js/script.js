@@ -37,7 +37,6 @@ function createTimeRowElements(currentHour, startTime, endTime) {
 
         var timeDescriptionElement = $("<textarea></textarea>")
             .addClass("description col-8")
-            // .css("text-align", "")
             .attr("id", "description-id-" + availableTime);
         
         // compares the current hour with available time and add classes as needed
@@ -104,7 +103,7 @@ function loadCalendar() {
     var savedCalendar = localStorage.getItem("calendar");
     savedCalendar = JSON.parse(savedCalendar);
 
-    // loop through the local storage data and show results in DOM
+    // loop through the local storage data and show result at the DOM
     for (var i = 0; i < savedCalendar.length; i++) {
         var hour = savedCalendar[i].hour;
         var description = savedCalendar[i].description;
